@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <bean name="profileService" class="atto.service.ProfileService"></bean>
+
+    <bean name="transactionController" class="atto.controller.TransactionController"></bean>
+
+    <bean name="cardService" class="atto.service.CardService"></bean>
+
+    <bean name="terminalService" class="atto.service.TerminalService"></bean>
+
+    <bean name="userService" class="atto.service.UserService"></bean>
+
+
+
+    <bean name="menuController" class="atto.controller.MenuController">
+        <property name="profileService" ref="profileService"/>
+    </bean>
+
+
+    <bean name="adminController" class="atto.controller.adminController">
+        <property name="profileService" ref="profileService"/>
+        <property name="cardController" ref="cardController"/>
+        <property name="terminalController" ref="terminalController"/>
+        <property name="transactionController" ref="transactionController"/>
+        <property name="menuController" ref="menuController"/>
+    </bean>
+
+
+    <bean name="profileController" class="atto.controller.ProfileController">
+        <property name="profileService" ref="profileService"/>
+        <property name="adminController" ref="adminController"/>
+    </bean>
+
+
+
+    <bean name="cardController" class="atto.controller.CardController">
+        <property name="cardService" ref="cardService"/>
+        <property name="adminController" ref="adminController"/>
+        <property name="scanner" ref="scanner"/>
+    </bean>
+
+
+    <bean name="terminalController" class="atto.controller.TerminalController">
+        <property name="terminalService" ref="terminalService"/>
+        <property name="adminController" ref="adminController"/>
+    </bean>
+
+
+    <bean name="userController" class="atto.controller.UserController">
+        <property name="userService" ref="userService"/>
+        <property name="cardService" ref="cardService"/>
+        <property name="menuController" ref="menuController"/>
+    </bean>
+
+
+
+</beans>
